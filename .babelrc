@@ -8,6 +8,11 @@
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread",
+    ["@babel/plugin-transform-async-to-generator",
+      {
+        "module": "bluebird",
+        "method": "coroutine"
+      }]
   ]
 }

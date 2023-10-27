@@ -32,6 +32,8 @@ const bot = new TelegramBot(BOT_TOKEN, { polling: true })
 const openai = new OpenAI(configuration)
 
 
+
+
 bot.on('message', async (msg) => {
   const chatResponse = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
@@ -53,4 +55,16 @@ bot.onText(/\/start/, msg => {
   bot.sendMessage(chatId, text)
 });
 
+bot.on('message', msg => {
+  const createImg = async () => {
+    const img = await openai.images.generate({prompt: "random image on background for smartphone"});
+    return img.data[0].url
+  }
+  
+  bot.sendPhoto({
+    chatId: helper.getChatId(msg),
+    caption: 'this is test img',
+    photo: createImg()
+  })
+})
 
